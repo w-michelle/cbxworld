@@ -2,11 +2,13 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import getCurrentUser from "../actions/getCurrentUser";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/features/authSlice";
 
 type FormData = {
   author?: string;
@@ -14,9 +16,12 @@ type FormData = {
 };
 
 const CreatePost = () => {
+  const currentUser = useSelector(selectUser);
+
   const [isLoading, setIsLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState<any>();
+
   const navigate = useNavigate();
+
   const schema = yup.object().shape({
     content: yup
       .string()
@@ -34,7 +39,7 @@ const CreatePost = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    setValue("author", currentUser?.data.user._id);
+    setValue("author", currentUser?._id);
     axios
       .post(`http://localhost:8080/createPost`, data, {
         withCredentials: true,
@@ -50,19 +55,7 @@ const CreatePost = () => {
         setIsLoading(false);
       });
   };
-  useEffect(() => {
-    const fetchUser = async () => {
-      const data = await getCurrentUser();
-      if (!data) {
-        navigate("/");
-      } else {
-        setCurrentUser(data?.data.user);
-      }
-    };
-    fetchUser();
-  }, []);
 
-  console.log(currentUser?.data.user._id);
   return (
     <div className="flex flex-col w-full items-center">
       <h1 className="mt-10">Create Post</h1>

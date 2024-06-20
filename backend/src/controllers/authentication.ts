@@ -58,7 +58,7 @@ export const verifyCode = async (
     const user = await getUserById(id);
     const newCode = passcode.join("");
     if (!newCode) {
-      return res.sendStatus(400);
+      return res.sendStatus(403);
     }
 
     const findPasscode = await getPasscode().select(

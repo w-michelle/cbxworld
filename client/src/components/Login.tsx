@@ -43,16 +43,24 @@ const Login = () => {
         withCredentials: true,
       })
       .then(() => {
-        navigate("/");
         reset();
       })
       .catch((error: any) => {
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+          navigate("/");
+          navigate(0);
+        }, 3000);
       });
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="text-black">
       <h1 className="text-center">Login</h1>

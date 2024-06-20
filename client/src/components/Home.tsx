@@ -4,24 +4,17 @@ import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import axios from "axios";
 import { formatDate } from "../utils/formatDate";
-import getCurrentUser from "../actions/getCurrentUser";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/features/authSlice";
 
 const Home = () => {
-  // fetch all posts ->
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [posts, setPosts] = useState<any>();
-  const [currentUser, setCurrentUser] = useState<any>();
-
+  const currentUser = useSelector(selectUser);
   //provide logion/signup buttons at top
   useEffect(() => {
     const fetchPosts = async () => {
-      const data = await getCurrentUser();
-      if (data) {
-        setCurrentUser(data?.data.user);
-      } else {
-        setCurrentUser(null);
-      }
       axios
         .get("http://localhost:8080/getPosts", {
           withCredentials: true,
@@ -35,12 +28,9 @@ const Home = () => {
     };
     fetchPosts();
   }, []);
-  console.log(posts);
 
   return (
     <div className="h-full bg-[#000]">
-      <Nav />
-
       <div className="relative mt-4 flex flex-col justify-center md:flex-row gap-10 w-full p-4">
         {/* if signed in then theres member component */}
         {currentUser && (
@@ -62,7 +52,7 @@ const Home = () => {
                       <p className="text-xs text-neutral-400">Non-member</p>
                       <Link to="/join">
                         <button className="text-xs bg-customBlue/60 hover:bg-customBlue px-2 py-2 rounded-lg mt-2">
-                          Become a member
+                          Join the club
                         </button>
                       </Link>
                     </div>
@@ -94,7 +84,7 @@ const Home = () => {
                   ></div>
                   <div
                     className={`${
-                      !currentUser || !currentUser.membership ? "blur-sm" : ""
+                      post.author.username === "anon" ? "blur-sm" : ""
                     }`}
                   >
                     <p>{post.author.username}</p>
