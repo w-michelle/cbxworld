@@ -7,11 +7,12 @@ import { useState } from "react";
 import Input from "./Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 type FormData = {
   email: string;
   password: string;
-  username?: string;
+  username: string;
   profile?: string;
   membership?: boolean;
 };
@@ -20,13 +21,18 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const schema = yup.object().shape({
-    username: yup.string(),
+    username: yup
+      .string()
+      .required("Username is required")
+      .min(1, "Username must be 1 char minimum")
+      .matches(/[a-zA-Z]/, "Username can only contain Latin letters."),
     email: yup.string().required("Email is required").email("Email is invalid"),
+
     password: yup
       .string()
       .required("No password provided.")
       .min(8, "Password is too short - should be 8 chars minimum.")
-      .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+      .matches(/[a-zA-Z]/, "Password must contain Latin letters."),
     profile: yup.string(),
     membership: yup.boolean(),
   });
@@ -78,7 +84,13 @@ const Register = () => {
         reset();
       })
       .catch((error: any) => {
-        console.log(error);
+        const statusCode = error.response.status;
+        if (statusCode === 409) {
+          console.log(error);
+          toast.error(error.response.data.error);
+        } else if (statusCode === 400) {
+          toast.error("Something went wrong");
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -86,7 +98,7 @@ const Register = () => {
   };
   return (
     <div className="text-black">
-      <h1 className="text-center">Register</h1>
+      <h1 className="text-center text-[#FFF]">Register</h1>
 
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -123,7 +135,7 @@ const Register = () => {
             <input
               type="submit"
               disabled={isLoading}
-              value="Register"
+              value="Sign Up"
               className="hover:cursor-pointer relative py-3 text-white w-full rounded-lg border-2  hover:bg-cusGreen/80 bg-cusGreen disabled:bg-cusGreen/30"
             />
           </div>

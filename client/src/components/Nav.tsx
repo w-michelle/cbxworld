@@ -27,17 +27,6 @@ const Nav = () => {
       });
   };
 
-  console.log(location.pathname);
-
-  // if (!currentUser) {
-  //   return (
-  //     <div className="px-4 w-full flex justify-end">
-  //       <Link to="/auth">
-  //         <button className="py-2 px-4 bg-customBlue rounded-md">Login</button>
-  //       </Link>
-  //     </div>
-  //   );
-  // }
   return (
     <div className="flex justify-between items-center px-4 py-2">
       <Link to="/" className={`${location.pathname === "/" ? "hidden" : ""}`}>
@@ -48,7 +37,7 @@ const Nav = () => {
           className={`${location.pathname === "/auth" ? "hidden" : ""} ml-auto`}
           onClick={logout}
         >
-          <button className="py-2 px-4 bg-customBlue rounded-md">
+          <button className="py-2 px-4 bg-customBlue/60 hover:bg-customBlue  rounded-md">
             Log out
           </button>
         </div>
@@ -57,7 +46,7 @@ const Nav = () => {
           className={`${location.pathname === "/auth" ? "hidden" : ""} ml-auto`}
         >
           <Link to="/auth">
-            <button className="py-2 px-4 bg-customBlue rounded-md">
+            <button className="py-2 px-4 bg-customBlue/60 hover:bg-customBlue  rounded-md">
               Login
             </button>
           </Link>

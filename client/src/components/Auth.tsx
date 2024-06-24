@@ -5,7 +5,7 @@ import Login from "./Login";
 const Auth = () => {
   const [authOption, setAuthOption] = useState("Register");
   return (
-    <div className="flex flex-col items-center justify-center border-2 border-neutral-600 w-full">
+    <div className="relative flex flex-col items-center justify-center w-full">
       <div className="mt-6">
         {authOption === "Register" ? <Login /> : <Register />}
       </div>
@@ -18,7 +18,6 @@ const Auth = () => {
         >
           {authOption}
         </span>{" "}
-        instead.
       </div>
     </div>
   );

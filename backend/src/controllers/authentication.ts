@@ -1,5 +1,10 @@
 import { createPasscode, getPasscode } from "./../db/passcode";
-import { createUser, getUserByEmail, getUserById } from "../db/users";
+import {
+  createUser,
+  getUserByEmail,
+  getUserById,
+  getUserByUsername,
+} from "../db/users";
 import express from "express";
 import { authentication, random } from "../helpers";
 
@@ -16,7 +21,7 @@ export const login = async (req: express.Request, res: express.Response) => {
       "+authentication.salt +authentication.password"
     );
     if (!user) {
-      return res.sendStatus(400);
+      return res.sendStatus(401);
     }
 
     //authenticate using hash comparison
@@ -24,7 +29,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     const expectedHash = authentication(user.authentication.salt, password);
 
     if (user.authentication.password !== expectedHash) {
-      return res.sendStatus(403);
+      return res.sendStatus(401);
     }
 
     const salt = random();
@@ -95,9 +100,15 @@ export const register = async (req: express.Request, res: express.Response) => {
     if (!email || !password || !username || !profile) {
       return res.sendStatus(400);
     }
-    const existingUser = await getUserByEmail(email);
-    if (existingUser) {
-      return res.sendStatus(400);
+    const existingUserByEmail = await getUserByEmail(email);
+    const existingUserByUsername = await getUserByUsername(username);
+
+    if (existingUserByEmail) {
+      return res.status(409).json({ error: "Email already exists" });
+    }
+
+    if (existingUserByUsername) {
+      return res.status(409).json({ error: "Username already exists" });
     }
 
     const salt = random();

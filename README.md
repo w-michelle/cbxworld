@@ -1,32 +1,33 @@
 # CYBERBUBBLE X WORLD
 
-This is a member's only blog space
+This is a member's only clubhouse where members can write posts and view who the author of a post is.
+Non member can only see the content and wonder who wrote it. To join the club, users must enter the secret 4 digit passcode.
 
 **[View Site](https://startfromzero.vercel.app)**
 
 ## Built With
 
-- React 
+- React
 - Typescript
 - Express
 - MongoDB
-
+- Node
 
 ## Features
 
 - Create an account
-- Enter secret key to create a blog post and view details of other blog post
-- 
+- Enter secret passcode to write a post and view authors of other blog post
+- Users can delete it's own posts.
 
 ## At a Glance
 
-|         Homepage          |           Cart            |
-| :-----------------------: | :-----------------------: |
-| ![](/public/sfz-home.png) | ![](/public/sfz-cart.png) |
+|         Landing          |             Members             |
+| :----------------------: | :-----------------------------: |
+| ![](/images/landing.png) | ![](/images/member-landing.png) |
 
-|           Checkout            |        Order History         |
-| :---------------------------: | :--------------------------: |
-| ![](/public/sfz-checkout.png) | ![](/public/sfz-history.png) |
+|             Non-member             |         Secret Pin         |
+| :--------------------------------: | :------------------------: |
+| ![](/images/nonmember-landing.png) | ![](/images/secretkey.png) |
 
 ## Getting Started
 
@@ -39,11 +40,13 @@ npm install
 2. Run the app
 
 Server
+
 ```bash
 npm start
 ```
 
 Client
+
 ```bash
 npm run dev
 ```

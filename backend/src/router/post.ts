@@ -1,8 +1,15 @@
 import express from "express";
 
-import { createPost, getAllPosts } from "../controllers/posts";
+import {
+  createPost,
+  deletePost,
+  getAllPosts,
+  userPosts,
+} from "../controllers/posts";
 
 export default (router: express.Router) => {
   router.get("/getPosts", getAllPosts);
+  router.get("/userPosts/:userId", userPosts);
   router.post("/createPost", createPost);
+  router.delete("/post/:id", deletePost);
 };

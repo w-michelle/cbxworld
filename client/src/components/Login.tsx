@@ -8,6 +8,8 @@ import { useState } from "react";
 import Input from "./Input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import Loader from "./Loader";
 
 type FormData = {
   email: string;
@@ -44,26 +46,29 @@ const Login = () => {
       })
       .then(() => {
         reset();
+        navigate("/");
+        navigate(0);
       })
       .catch((error: any) => {
-        console.log(error);
+        const statusCode = error.response.status;
+        if (statusCode === 401) {
+          toast.error("The email or password you entered is incorrect");
+        } else if (statusCode === 400) {
+          toast.error("Something went wrong");
+        }
       })
       .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-          navigate("/");
-          navigate(0);
-        }, 3000);
+        setIsLoading(false);
       });
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
     <div className="text-black">
-      <h1 className="text-center">Login</h1>
+      <h1 className="text-center text-[#FFF]">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className=" p-6 flex-auto">
           <div className="flex flex-col gap-4">
@@ -75,6 +80,7 @@ const Login = () => {
               errors={errors}
               required
             />
+
             <Input
               id="password"
               type="password"

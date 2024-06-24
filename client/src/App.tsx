@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { addUser } from "./redux/features/authSlice";
 import getCurrentUser from "./actions/getCurrentUser";
 import Nav from "./components/Nav";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
   }
   return (
     <div className="bg-[#000000] h-screen">
+      <Toaster />
       <BrowserRouter>
         <video
           autoPlay

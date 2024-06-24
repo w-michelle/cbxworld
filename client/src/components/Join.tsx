@@ -73,7 +73,7 @@ const Join = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 items-center justify-center h-full bg-black border-2 border-green-300">
+      <div className="flex flex-col gap-4 items-center justify-center h-full bg-black">
         <div className="flex items-center justify-center space-x-3 shadow-custom py-6 w-[250px] text-customBlue rounded-md">
           {[...Array(4)].map((_, i) => (
             <input
