@@ -1,5 +1,3 @@
-import React from "react";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -83,7 +81,7 @@ const Register = () => {
         navigate(0);
         reset();
       })
-      .catch((error: any) => {
+      .catch((error) => {
         const statusCode = error.response.status;
         if (statusCode === 409) {
           toast.error(error.response.data.error);

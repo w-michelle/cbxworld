@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import Nav from "./Nav";
+
 import axios from "axios";
 import { formatDate } from "../utils/formatDate";
 
-import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/features/authSlice";
 import UserProfile from "./UserProfile";

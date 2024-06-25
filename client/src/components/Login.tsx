@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -49,7 +46,7 @@ const Login = () => {
         navigate("/");
         navigate(0);
       })
-      .catch((error: any) => {
+      .catch((error) => {
         const statusCode = error.response.status;
         if (statusCode === 401) {
           toast.error("The email or password you entered is incorrect");
