@@ -22,9 +22,7 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-server.listen(8080, () => {
-  console.log("Server running on http://localhost:8080/");
-});
+server.listen("https://cbxworld-server.vercel.app");
 
 const MONGO_URL = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_KEY}@cluster0.v8jjewz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
