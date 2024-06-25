@@ -9,22 +9,19 @@ const Nav = () => {
   const currentUser = useSelector(selectUser);
   const location = useLocation();
   const navigate = useNavigate();
-  const logout = () => {
-    axios
-      .post(
+  const logout = async () => {
+    try {
+      await axios.post(
         "http://localhost:8080/auth/logout",
         {},
         {
           withCredentials: true,
         }
-      )
-      .then(() => {
-        navigate(0);
-        console.log("logged out");
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+      );
+      navigate(0);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -86,7 +86,6 @@ const Register = () => {
       .catch((error: any) => {
         const statusCode = error.response.status;
         if (statusCode === 409) {
-          console.log(error);
           toast.error(error.response.data.error);
         } else if (statusCode === 400) {
           toast.error("Something went wrong");

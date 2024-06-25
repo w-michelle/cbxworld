@@ -22,7 +22,6 @@ const UserPosts = () => {
   const { userId } = useParams();
 
   const handleDeletePost = async (id: string) => {
-    console.log(id);
     try {
       await axios.delete(`http://localhost:8080/post/${id}`);
       setPosts((prevPosts) => prevPosts.filter((post) => post?._id !== id));

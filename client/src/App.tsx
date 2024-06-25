@@ -9,6 +9,7 @@ import { addUser } from "./redux/features/authSlice";
 import getCurrentUser from "./actions/getCurrentUser";
 import Nav from "./components/Nav";
 import { Toaster } from "react-hot-toast";
+import Loader from "./components/Loader";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function App() {
   useEffect(() => {
     const getUser = async () => {
       const data = await getCurrentUser();
+
       if (data) {
         dispatch(addUser(data.data.user));
       }
@@ -26,7 +28,7 @@ function App() {
   }, [dispatch]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   return (
     <div className="bg-[#000000] h-screen">

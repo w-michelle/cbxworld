@@ -7,7 +7,6 @@ import {
   registerCode,
   verifyCode,
 } from "../controllers/authentication";
-import { isAuthenticated } from "../middlewares";
 
 export default (router: express.Router) => {
   router.post("/auth/register", register);

@@ -13,19 +13,17 @@ import UserProfile from "./UserProfile";
 const Home = () => {
   const [posts, setPosts] = useState<any>();
   const currentUser = useSelector(selectUser);
-  //provide logion/signup buttons at top
+
   useEffect(() => {
     const fetchPosts = async () => {
-      axios
-        .get("http://localhost:8080/getPosts", {
+      try {
+        const response = await axios.get("http://localhost:8080/getPosts", {
           withCredentials: true,
-        })
-        .then((data) => {
-          setPosts(data.data);
-        })
-        .catch((error: any) => {
-          console.log(error);
         });
+        setPosts(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchPosts();
   }, []);

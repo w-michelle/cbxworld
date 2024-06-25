@@ -7,11 +7,14 @@ export default async function getCurrentUser() {
       withCredentials: true,
     })
     .then((data) => {
+      console.log(data);
       return data;
     })
-    .catch((error: any) => {
-      console.log(error);
-      return null;
+
+    .catch((error) => {
+      if (error.response.status === 403) {
+        return null;
+      }
     });
   return user;
 }

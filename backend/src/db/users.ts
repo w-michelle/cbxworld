@@ -12,8 +12,6 @@ const UserSchema = new mongoose.Schema({
   membership: { type: Boolean, required: true },
 });
 
-// actions used in controller practice to keep them abstracted
-
 export const UserModel = mongoose.model("User", UserSchema);
 export const getUsers = () => UserModel.find();
 export const getUserByEmail = (email: string) => UserModel.findOne({ email });
@@ -32,4 +30,3 @@ export const deleteUserById = (id: string) =>
   UserModel.findOneAndDelete({ _id: id });
 export const updateUserById = (id: string, values: Record<string, any>) =>
   UserModel.findByIdAndUpdate(id, values);
-//auth select false means that ecvverytime we use our controller to fetch user we dont need uath data.

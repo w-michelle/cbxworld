@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/features/authSlice";
+import toast from "react-hot-toast";
 
 type FormData = {
   author?: string;
@@ -37,23 +38,20 @@ const CreatePost = () => {
     reset,
   } = useForm<FormData>({ resolver: yupResolver(schema) });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     setValue("author", currentUser?._id);
-    axios
-      .post(`http://localhost:8080/createPost`, data, {
+
+    try {
+      await axios.post(`http://localhost:8080/createPost`, data, {
         withCredentials: true,
-      })
-      .then(() => {
-        navigate("/");
-        reset();
-      })
-      .catch((error: any) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
+      navigate("/");
+      reset();
+      setIsLoading(false);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (

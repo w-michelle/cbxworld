@@ -41,7 +41,6 @@ export const getAllPosts = async (
       return res.status(200).json(anonPosts);
     }
 
-    //check if tehre is existing user with this sessiontoken
     return res.status(200).json(posts);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -54,9 +53,9 @@ export const userPosts = async (
 ) => {
   try {
     const { userId } = req.params;
-    console.log(userId);
+
     const posts = await getPostById(userId);
-    console.log(posts);
+
     if (!posts || posts.length === 0) {
       return res.status(404).json({ error: "No posts found" });
     }
