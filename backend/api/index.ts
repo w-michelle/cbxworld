@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
-import router from "./router";
+import router from "../src/router";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -36,3 +36,5 @@ mongoose.connect(MONGO_URL);
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
 app.use("/", router());
+
+module.exports = app;
