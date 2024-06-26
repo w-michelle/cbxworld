@@ -7,7 +7,10 @@ import {
 } from "../db/users";
 import express from "express";
 import { authentication, random } from "../helpers";
+import dotenv from "dotenv";
 
+dotenv.config();
+const cookieDomain = process.env.COOKIE_DOMAIN || "localhost";
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password } = req.body;
@@ -39,7 +42,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     await user.save();
     res.cookie("cbblog-auth", user.authentication.sessionToken, {
-      domain: "localhost",
+      domain: cookieDomain,
       path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -129,7 +132,7 @@ export const logout = async (req: express.Request, res: express.Response) => {
   try {
     // Clear the authentication cookie
     res.clearCookie("cbblog-auth", {
-      domain: "localhost",
+      domain: cookieDomain,
       path: "/",
     });
     return res.sendStatus(200);
