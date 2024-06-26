@@ -76,7 +76,7 @@ const Register = () => {
     setValue("profile", generateProfilePic());
     setValue("membership", false);
     axios
-      .post("http://localhost:8080/auth/register", data)
+      .post("https://cbxworld-mocha.vercel.app/auth/register", data)
       .then(() => {
         navigate(0);
         reset();

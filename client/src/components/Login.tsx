@@ -38,7 +38,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     axios
-      .post("http://localhost:8080/auth/login", data, {
+      .post("https://cbxworld-mocha.vercel.app/auth/login", data, {
         withCredentials: true,
       })
       .then(() => {

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default async function getCurrentUser() {
   const user = axios
-    .get("http://localhost:8080/getCurrentUser", {
+    .get("https://cbxworld-mocha.vercel.app/getCurrentUser", {
       withCredentials: true,
     })
     .then((data) => {

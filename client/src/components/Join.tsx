@@ -35,7 +35,7 @@ const Join = () => {
   const onSubmit = () => {
     axios
       .post(
-        `http://localhost:8080/auth/join/${currentUser?._id}`,
+        `https://cbxworld-mocha.vercel.app/auth/join/${currentUser?._id}`,
         {
           passcode: pin,
         },

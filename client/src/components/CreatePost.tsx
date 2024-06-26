@@ -43,7 +43,7 @@ const CreatePost = () => {
     setValue("author", currentUser?._id);
 
     try {
-      await axios.post(`http://localhost:8080/createPost`, data, {
+      await axios.post(`https://cbxworld-mocha.vercel.app/createPost`, data, {
         withCredentials: true,
       });
       navigate("/");

@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import UserProfile from "./UserProfile";
 import toast from "react-hot-toast";
@@ -18,12 +18,12 @@ interface Post {
 
 const UserPosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const navigate = useNavigate();
+
   const { userId } = useParams();
 
   const handleDeletePost = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:8080/post/${id}`);
+      await axios.delete(`https://cbxworld-mocha.vercel.app/post/${id}`);
       setPosts((prevPosts) => prevPosts.filter((post) => post?._id !== id));
     } catch (error: any) {
       toast.error("Something went wrong");
@@ -34,7 +34,7 @@ const UserPosts = () => {
     const getUserPosts = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/userPosts/${userId}`
+          `https://cbxworld-mocha.vercel.app/userPosts/${userId}`
         );
         const response = data.posts;
         setPosts(response);

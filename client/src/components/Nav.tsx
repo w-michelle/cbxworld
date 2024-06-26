@@ -12,7 +12,7 @@ const Nav = () => {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost:8080/auth/logout",
+        "https://cbxworld-mocha.vercel.app/auth/logout",
         {},
         {
           withCredentials: true,
