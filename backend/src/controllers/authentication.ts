@@ -48,8 +48,9 @@ export const login = async (req: express.Request, res: express.Response) => {
     res.cookie("cbblog-auth", user.authentication.sessionToken, {
       path: "/",
       maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
     });
 
     return res.status(200).json(user).end();
