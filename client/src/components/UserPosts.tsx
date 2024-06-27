@@ -17,13 +17,14 @@ interface Post {
 }
 
 const UserPosts = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [posts, setPosts] = useState<Post[]>([]);
 
   const { userId } = useParams();
 
   const handleDeletePost = async (id: string) => {
     try {
-      await axios.delete(`https://cbxworld-mocha.vercel.app/post/${id}`);
+      await axios.delete(`${apiUrl}/post/${id}`);
       setPosts((prevPosts) => prevPosts.filter((post) => post?._id !== id));
     } catch (error: any) {
       toast.error("Something went wrong");
@@ -33,9 +34,7 @@ const UserPosts = () => {
   useEffect(() => {
     const getUserPosts = async () => {
       try {
-        const { data } = await axios.get(
-          `https://cbxworld-mocha.vercel.app/userPosts/${userId}`
-        );
+        const { data } = await axios.get(`${apiUrl}/userPosts/${userId}`);
         const response = data.posts;
         setPosts(response);
       } catch (error: any) {

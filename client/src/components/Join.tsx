@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/features/authSlice";
 
 const Join = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const inputRef = useRef<any>([]);
   const [pin, setPin] = useState(new Array(4).fill(""));
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +37,7 @@ const Join = () => {
   const onSubmit = () => {
     axios
       .post(
-        `https://cbxworld-mocha.vercel.app/auth/join/${currentUser?._id}`,
+        `${apiUrl}/auth/join/${currentUser?._id}`,
         {
           passcode: pin,
         },

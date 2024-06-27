@@ -16,12 +16,10 @@ const Home = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(
-          "https://cbxworld-mocha.vercel.app/getPosts",
-          {
-            withCredentials: true,
-          }
-        );
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${apiUrl}/getPosts`, {
+          withCredentials: true,
+        });
         setPosts(response.data);
       } catch (error) {
         console.log(error);

@@ -3,7 +3,7 @@
 This is a member's only clubhouse where members can write posts and view who the author of a post is.
 Non member can only see the content and wonder who wrote it. To join the club, users must enter the secret 4 digit passcode.
 
-**[View Site](https://startfromzero.vercel.app)**
+**[View Site](https://cbxworld-azxt.vercel.app)**
 
 ## Built With
 

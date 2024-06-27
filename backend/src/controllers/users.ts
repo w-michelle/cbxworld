@@ -26,7 +26,7 @@ export const getCurrentUser = async (
     if (!sessionToken) {
       return res.sendStatus(403);
     }
-
+    console.log("st:", sessionToken);
     const existingUser = await getUserBySessionToken(sessionToken);
 
     if (!existingUser) {

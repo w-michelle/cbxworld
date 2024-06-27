@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
-export default async function getCurrentUser() {
+export default function getCurrentUser() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const user = axios
-    .get("https://cbxworld-mocha.vercel.app/getCurrentUser", {
+    .get(`${apiUrl}/getCurrentUser`, {
       withCredentials: true,
     })
     .then((data) => {

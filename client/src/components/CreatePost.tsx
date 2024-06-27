@@ -17,6 +17,7 @@ type FormData = {
 };
 
 const CreatePost = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const currentUser = useSelector(selectUser);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +44,7 @@ const CreatePost = () => {
     setValue("author", currentUser?._id);
 
     try {
-      await axios.post(`https://cbxworld-mocha.vercel.app/createPost`, data, {
+      await axios.post(`${apiUrl}/createPost`, data, {
         withCredentials: true,
       });
       navigate("/");

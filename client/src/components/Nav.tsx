@@ -9,10 +9,11 @@ const Nav = () => {
   const currentUser = useSelector(selectUser);
   const location = useLocation();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
   const logout = async () => {
     try {
       await axios.post(
-        "https://cbxworld-mocha.vercel.app/auth/logout",
+        `${apiUrl}/auth/logout`,
         {},
         {
           withCredentials: true,

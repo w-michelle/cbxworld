@@ -14,6 +14,7 @@ const app = express();
 app.use(
   cors({
     origin: "https://cbxworld-azxt.vercel.app",
+    methods: "*",
     credentials: true,
   })
 );
@@ -23,7 +24,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 const server = http.createServer(app);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -16,6 +16,8 @@ type FormData = {
 };
 
 const Register = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const schema = yup.object().shape({
@@ -76,7 +78,7 @@ const Register = () => {
     setValue("profile", generateProfilePic());
     setValue("membership", false);
     axios
-      .post("https://cbxworld-mocha.vercel.app/auth/register", data)
+      .post(`${apiUrl}/auth/register`, data)
       .then(() => {
         navigate(0);
         reset();

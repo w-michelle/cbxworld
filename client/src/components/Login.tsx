@@ -16,7 +16,7 @@ type FormData = {
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const schema = yup.object().shape({
     email: yup.string().required("Email is required").email("Email is invalid"),
     password: yup
@@ -38,7 +38,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     axios
-      .post("https://cbxworld-mocha.vercel.app/auth/login", data, {
+      .post(`${apiUrl}/auth/login`, data, {
         withCredentials: true,
       })
       .then(() => {
