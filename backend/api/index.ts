@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://cbxworld-azxt.vercel.app",
+    origin: "https://cbxworld.vercel.app",
     methods: "*",
     credentials: true,
   })
