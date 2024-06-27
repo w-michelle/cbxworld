@@ -11,6 +11,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const cookieDomain = process.env.COOKIE_DOMAIN || "localhost";
+
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     console.log("hello");
@@ -48,6 +49,7 @@ export const login = async (req: express.Request, res: express.Response) => {
       domain: cookieDomain,
       path: "/",
       maxAge: 24 * 60 * 60 * 1000,
+      secure: true,
     });
 
     return res.status(200).json(user).end();
