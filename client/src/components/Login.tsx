@@ -36,6 +36,7 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log("starting login");
     setIsLoading(true);
     axios
       .post(`${apiUrl}/auth/login`, data, {

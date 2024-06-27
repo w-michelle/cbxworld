@@ -13,8 +13,9 @@ dotenv.config();
 const cookieDomain = process.env.COOKIE_DOMAIN || "localhost";
 export const login = async (req: express.Request, res: express.Response) => {
   try {
+    console.log("hello");
     const { email, password } = req.body;
-
+    console.log("email:", email);
     if (!email || !password) {
       return res.sendStatus(400);
     }
