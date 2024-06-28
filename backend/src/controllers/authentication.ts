@@ -51,7 +51,6 @@ export const login = async (req: express.Request, res: express.Response) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: cookieDomain,
     });
 
     return res.status(200).json(user).end();
@@ -139,7 +138,6 @@ export const logout = async (req: express.Request, res: express.Response) => {
   try {
     // Clear the authentication cookie
     res.clearCookie("cbblog-auth", {
-      domain: cookieDomain,
       path: "/",
     });
     return res.sendStatus(200);
