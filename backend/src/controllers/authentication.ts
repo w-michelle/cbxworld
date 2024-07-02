@@ -35,9 +35,11 @@ export const login = async (req: express.Request, res: express.Response) => {
     }
 
     const token = generateToken(user);
+    console.log(token);
 
     return res.status(200).json({ token, user }).end();
   } catch (error) {
+    console.log("error:", error);
     return res.sendStatus(400);
   }
 };
