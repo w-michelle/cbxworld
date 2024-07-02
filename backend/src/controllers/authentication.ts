@@ -16,7 +16,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     if (!email || !password) {
       return res.sendStatus(400);
     }
-
+    console.log("received:", email);
     const user = await getUserByEmail(email).select(
       "+authentication.salt +authentication.password"
     );
@@ -25,6 +25,7 @@ export const login = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(401);
     }
 
+    console.log("user", user);
     //authenticate using hash comparison
 
     const expectedHash = authentication(user.authentication.salt, password);
