@@ -2,7 +2,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -54,6 +54,14 @@ const CreatePost = () => {
       toast.error("Something went wrong");
     }
   };
+  useEffect(() => {
+    if (currentUser?.membership === true) {
+      navigate("/");
+    }
+    if (!currentUser) {
+      navigate("/auth");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col w-full items-center">

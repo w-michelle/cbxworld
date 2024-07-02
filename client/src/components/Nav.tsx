@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/features/authSlice";
 
@@ -9,20 +8,11 @@ const Nav = () => {
   const currentUser = useSelector(selectUser);
   const location = useLocation();
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_API_URL;
+
   const logout = async () => {
-    try {
-      await axios.post(
-        `${apiUrl}/auth/logout`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      navigate(0);
-    } catch (error) {
-      console.log(error);
-    }
+    localStorage.removeItem("cbAuth");
+
+    navigate(0);
   };
 
   return (

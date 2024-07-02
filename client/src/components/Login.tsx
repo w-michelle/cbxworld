@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -35,14 +36,15 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log("starting login");
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
+
     axios
       .post(`${apiUrl}/auth/login`, data, {
         withCredentials: true,
       })
-      .then(() => {
+      .then((data: any) => {
+        localStorage.setItem("cbAuth", data.data.token);
         reset();
         navigate("/");
         navigate(0);

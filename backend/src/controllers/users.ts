@@ -1,6 +1,14 @@
 import express from "express";
 
-import { deleteUserById, getUserBySessionToken } from "../db/users";
+import {
+  deleteUserById,
+  getUserById,
+  getUserBySessionToken,
+} from "../db/users";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import { TokenPayload } from "types/types";
+dotenv.config();
 
 export const deleteUser = async (
   req: express.Request,
@@ -21,21 +29,37 @@ export const getCurrentUser = async (
   next: express.NextFunction
 ) => {
   try {
-    const sessionToken = req.cookies["cbblog-auth"];
+    const authHeader = req.headers.authorization;
 
-    if (!sessionToken) {
-      return res.sendStatus(403);
-    }
-    console.log("st:", sessionToken);
-    const existingUser = await getUserBySessionToken(sessionToken);
-
-    if (!existingUser) {
+    if (!authHeader) {
       return res.sendStatus(403);
     }
 
-    const user = existingUser;
-    res.json({ user });
+    const token = authHeader.split(" ")[1];
+
+    let decoded: TokenPayload;
+    try {
+      decoded = jwt.verify(token, process.env.TOKEN_SECRET) as TokenPayload;
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        return res
+          .status(401)
+          .json({ message: "Token has expired, please log in again" });
+      } else if (error instanceof jwt.JsonWebTokenError) {
+        return res.status(401).json({ message: "Invalid token" });
+      } else {
+        return res.status(500).json({ message: "Interval server error" });
+      }
+    }
+
+    const user = await getUserById(decoded.userId);
+
+    if (!user) {
+      return res.sendStatus(403);
+    }
+
+    return res.status(200).json(user);
   } catch (error) {
-    return res.sendStatus(400);
+    return res.status(500).json({ message: "Interval server error" });
   }
 };

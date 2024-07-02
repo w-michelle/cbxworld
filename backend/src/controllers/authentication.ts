@@ -6,17 +6,13 @@ import {
   getUserByUsername,
 } from "../db/users";
 import express from "express";
-import { authentication, random } from "../helpers";
+import { authentication, generateToken, random } from "../helpers";
 import dotenv from "dotenv";
-
-dotenv.config();
-const cookieDomain = process.env.COOKIE_DOMAIN || "localhost";
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
-    console.log("hello");
     const { email, password } = req.body;
-    console.log("email:", email);
+
     if (!email || !password) {
       return res.sendStatus(400);
     }
@@ -25,7 +21,6 @@ export const login = async (req: express.Request, res: express.Response) => {
       "+authentication.salt +authentication.password"
     );
 
-    console.log("user:", user);
     if (!user) {
       return res.sendStatus(401);
     }
@@ -38,22 +33,9 @@ export const login = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(401);
     }
 
-    const salt = random();
-    user.authentication.sessionToken = authentication(
-      salt,
-      user._id.toString()
-    );
+    const token = generateToken(user);
 
-    await user.save();
-    res.cookie("cbblog-auth", user.authentication.sessionToken, {
-      path: "/",
-      maxAge: 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
-
-    return res.status(200).json(user).end();
+    return res.status(200).json({ token, user }).end();
   } catch (error) {
     return res.sendStatus(400);
   }
@@ -129,18 +111,6 @@ export const register = async (req: express.Request, res: express.Response) => {
       membership,
     });
     return res.status(200).json(user).end();
-  } catch (error) {
-    return res.sendStatus(400);
-  }
-};
-
-export const logout = async (req: express.Request, res: express.Response) => {
-  try {
-    // Clear the authentication cookie
-    res.clearCookie("cbblog-auth", {
-      path: "/",
-    });
-    return res.sendStatus(200);
   } catch (error) {
     return res.sendStatus(400);
   }

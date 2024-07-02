@@ -20,7 +20,7 @@ function App() {
       const data = await getCurrentUser();
 
       if (data) {
-        dispatch(addUser(data.data.user));
+        dispatch(addUser(data.data));
       }
       setLoading(false);
     };

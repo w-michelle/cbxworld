@@ -5,7 +5,11 @@ import {
   getPostById,
   getPosts,
 } from "../db/posts";
+import jwt from "jsonwebtoken";
 import express from "express";
+import dotenv from "dotenv";
+import { TokenPayload } from "types/types";
+dotenv.config();
 
 export const createPost = async (
   req: express.Request,
@@ -30,15 +34,31 @@ export const getAllPosts = async (
   res: express.Response
 ) => {
   try {
-    const sessionToken = req.cookies["cbblog-auth"];
     const posts = await getPosts();
+    const authHeader = req.headers.authorization;
 
-    if (!sessionToken) {
-      const anonPosts = posts.map((post) => {
+    const getAnonPosts = (posts: any[]) => {
+      return posts.map((post) => {
         const postObj = post.toObject();
         return { ...postObj, author: { _id: postObj._id, username: "anon" } };
       });
-      return res.status(200).json(anonPosts);
+    };
+
+    if (!authHeader) {
+      return res.status(200).json(getAnonPosts(posts));
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    if (token === "null") {
+      return res.status(200).json(getAnonPosts(posts));
+    }
+
+    let decoded: TokenPayload;
+    try {
+      decoded = jwt.verify(token, process.env.TOKEN_SECRET) as TokenPayload;
+    } catch (error) {
+      return res.status(200).json(getAnonPosts(posts));
     }
 
     return res.status(200).json(posts);
