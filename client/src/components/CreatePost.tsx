@@ -54,8 +54,9 @@ const CreatePost = () => {
       toast.error("Something went wrong");
     }
   };
+
   useEffect(() => {
-    if (currentUser?.membership === true) {
+    if (currentUser?.membership === false) {
       navigate("/");
     }
     if (!currentUser) {
