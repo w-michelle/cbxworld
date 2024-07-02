@@ -12,7 +12,7 @@ const Nav = () => {
   const logout = async () => {
     localStorage.removeItem("cbAuth");
 
-    navigate(0);
+    navigate("/");
   };
 
   return (
