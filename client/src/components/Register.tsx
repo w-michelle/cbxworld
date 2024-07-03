@@ -81,6 +81,7 @@ const Register = () => {
       .post(`${apiUrl}/auth/register`, data)
       .then(() => {
         navigate(0);
+        navigate("/");
         reset();
       })
       .catch((error) => {
