@@ -9,15 +9,18 @@ Non member can only see the content and wonder who wrote it. To join the club, u
 
 - React
 - Typescript
-- Express
+- Tailwind CSS
+- Express.js
+- Node.js
 - MongoDB
-- Node
+- Redux
+- JWT
 
 ## Features
 
 - Create an account
 - Enter secret passcode to write a post and view authors of other blog post
-- Users can delete it's own posts.
+- Users can create and delete it's own posts.
 
 ## At a Glance
 
@@ -28,6 +31,10 @@ Non member can only see the content and wonder who wrote it. To join the club, u
 |             Non-member             |         Secret Pin         |
 | :--------------------------------: | :------------------------: |
 | ![](/images/nonmember-landing.png) | ![](/images/secretkey.png) |
+
+|       Personal Page       |
+| :-----------------------: |
+| ![](/images/personal.png) |
 
 ## Getting Started
 
