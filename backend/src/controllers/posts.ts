@@ -8,7 +8,8 @@ import {
 import jwt from "jsonwebtoken";
 import express from "express";
 import dotenv from "dotenv";
-import { TokenPayload } from "types/types";
+import { TokenPayload } from "../types/types";
+
 dotenv.config();
 
 export const createPost = async (

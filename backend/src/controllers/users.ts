@@ -7,7 +7,8 @@ import {
 } from "../db/users";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { TokenPayload } from "types/types";
+import { TokenPayload } from "../types/types";
+
 dotenv.config();
 
 export const deleteUser = async (
