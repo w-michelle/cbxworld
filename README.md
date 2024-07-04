@@ -1,7 +1,7 @@
 # CYBERBUBBLE X WORLD
 
 This is a member's only clubhouse where members can write posts and view who the author of a post is.
-Non member can only see the content and wonder who wrote it. To join the club, users must enter the secret 4 digit passcode.
+Non member can only see the content and wonder who wrote it. To join the club, users must enter the secret 4 digit passcode. **To join, use [4949]**
 
 **[View Site](https://cbxworld.vercel.app)**
 
