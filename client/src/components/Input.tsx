@@ -33,7 +33,7 @@ const Input: React.FC<InputProps<any>> = ({
         ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}`}
       />
       <label
-        className={`absolute top-5 left-4 origin-[0] text-md duration-500 transform -translate-y-3 z-10 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 
+        className={`absolute top-5 left-4 origin-[0] text-sm duration-500 transform -translate-y-3 z-10 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 
         ${errors[id] ? "text-rose-500" : "text-zinc-400"}
         `}
       >

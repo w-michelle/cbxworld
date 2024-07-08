@@ -68,7 +68,7 @@ const CreatePost = () => {
     <div className="flex flex-col w-full items-center">
       <h1 className="mt-10">Create Post</h1>
 
-      <div className="w-1/3 text-black">
+      <div className="w-full md:w-2/3 lg:w-1/3 text-black">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className=" p-6 flex-auto">
             <div className="flex flex-col gap-4">
