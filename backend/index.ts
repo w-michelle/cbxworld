@@ -14,8 +14,9 @@ const app = express();
 app.use(
   cors({
     origin: "https://cbxworld.vercel.app",
-    methods: "*",
+    methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
