@@ -11,21 +11,16 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://cbxworld.vercel.app",
-    methods: ["GET", "POST", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://cbxworld.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
+const corsOptions = {
+  origin: "https://cbxworld.vercel.app",
+  methods: ["GET", "POST", "OPTIONS"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
 
 app.use(compression());
 app.use(cookieParser());
