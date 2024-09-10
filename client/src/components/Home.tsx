@@ -11,10 +11,12 @@ import UserProfile from "./UserProfile";
 
 const Home = () => {
   const [posts, setPosts] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const currentUser = useSelector(selectUser);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchPosts = async (retryCount = 0) => {
       const token = localStorage.getItem("cbAuth");
 
       try {
@@ -24,12 +26,29 @@ const Home = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(response.data);
+        setLoading(false);
       } catch (error) {
-        console.log(error);
+        if (retryCount < 3) {
+          // Retry after 3 seconds if the fetch fails (up to 3 retries)
+          setTimeout(() => {
+            fetchPosts(retryCount + 1);
+          }, 3000);
+        } else {
+          // Set error state after 3 retries
+          setError("Failed to load posts. Please try again later.");
+          setLoading(false);
+        }
       }
     };
     fetchPosts();
   }, []);
+  if (loading) {
+    return <div className="text-white">Loading posts...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">{error}</div>;
+  }
 
   return (
     <div className="h-full bg-[#000]">
