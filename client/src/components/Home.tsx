@@ -8,6 +8,7 @@ import { formatDate } from "../utils/formatDate";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/features/authSlice";
 import UserProfile from "./UserProfile";
+import { MoonLoader } from "react-spinners";
 
 const Home = () => {
   const [posts, setPosts] = useState<any>();
@@ -43,7 +44,11 @@ const Home = () => {
     fetchPosts();
   }, []);
   if (loading) {
-    return <div className="text-white">Loading posts...</div>;
+    return (
+      <div className="text-white w-full h-screen flex items-center justify-center">
+        <MoonLoader size={10} color="#001bff" aria-label="Loading Spinner" />
+      </div>
+    );
   }
 
   if (error) {
