@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Register from "./Register";
 import Login from "./Login";
+import Tester from "./TesterBtn";
 
 const Auth = () => {
   const [authOption, setAuthOption] = useState("Register");
@@ -19,6 +20,7 @@ const Auth = () => {
           {authOption}
         </span>{" "}
       </div>
+      <Tester />
     </div>
   );
 };

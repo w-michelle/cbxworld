@@ -39,6 +39,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
 
+    console.log("data", data);
     axios
       .post(`${apiUrl}/auth/login`, data, {
         withCredentials: true,
