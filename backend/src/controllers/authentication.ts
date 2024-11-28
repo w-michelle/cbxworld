@@ -16,7 +16,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     if (!email || !password) {
       return res.sendStatus(400);
     }
-    console.log("received:", email);
+
     const user = await getUserByEmail(email).select(
       "+authentication.salt +authentication.password"
     );
@@ -25,7 +25,6 @@ export const login = async (req: express.Request, res: express.Response) => {
       return res.sendStatus(401);
     }
 
-    console.log("user", user);
     //authenticate using hash comparison
 
     const expectedHash = authentication(user.authentication.salt, password);
@@ -35,7 +34,6 @@ export const login = async (req: express.Request, res: express.Response) => {
     }
 
     const token = generateToken(user);
-    console.log(token);
 
     return res.status(200).json({ token, user }).end();
   } catch (error) {
@@ -113,7 +111,10 @@ export const register = async (req: express.Request, res: express.Response) => {
       },
       membership,
     });
-    return res.status(200).json(user).end();
+
+    const token = generateToken(user);
+
+    return res.status(200).json({ token, user }).end();
   } catch (error) {
     return res.sendStatus(400);
   }

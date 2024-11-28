@@ -79,10 +79,11 @@ const Register = () => {
     setValue("membership", false);
     axios
       .post(`${apiUrl}/auth/register`, data)
-      .then(() => {
-        navigate(0);
-        navigate("/");
+      .then((res) => {
+        localStorage.setItem("cbAuth", res.data.token);
         reset();
+        navigate("/");
+        navigate(0);
       })
       .catch((error) => {
         const statusCode = error.response.status;
