@@ -37,9 +37,8 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     res.cookie("cbblog-auth", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "none",
-
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -124,9 +123,8 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     res.cookie("cbblog-auth", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "none",
-
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -162,8 +160,7 @@ export const logOut = async (req: express.Request, res: express.Response) => {
     res.clearCookie("cbblog-auth", {
       path: "/",
       httpOnly: true,
-      secure: false,
-
+      secure: true,
       sameSite: "none",
     });
     return res.status(200).send("Logged out successfully!");
