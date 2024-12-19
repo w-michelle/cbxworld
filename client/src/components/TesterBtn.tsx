@@ -53,5 +53,3 @@ const Tester = () => {
 };
 
 export default Tester;
-
-// {email: 'test123@cb.com, password: 'test123@@'}
