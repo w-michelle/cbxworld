@@ -36,7 +36,6 @@ export const getAllPosts = async (
 ) => {
   try {
     const posts = await getPosts();
-    const authHeader = req.headers.authorization;
 
     const getAnonPosts = (posts: any[]) => {
       return posts.map((post) => {
@@ -45,13 +44,9 @@ export const getAllPosts = async (
       });
     };
 
-    if (!authHeader) {
-      return res.status(200).json(getAnonPosts(posts));
-    }
+    const token = req.cookies["cbblog-auth"];
 
-    const token = authHeader.split(" ")[1];
-
-    if (token === "null") {
+    if (!token) {
       return res.status(200).json(getAnonPosts(posts));
     }
 
