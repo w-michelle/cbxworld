@@ -2,6 +2,7 @@ import express from "express";
 
 import {
   login,
+  logOut,
   register,
   registerCode,
   verifyCode,
@@ -13,4 +14,5 @@ export default (router: express.Router) => {
 
   router.post("/auth/passcode", registerCode);
   router.post("/auth/join/:id", verifyCode);
+  router.post("/logout", logOut);
 };

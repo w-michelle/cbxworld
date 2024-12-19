@@ -21,8 +21,7 @@ const Tester = () => {
           withCredentials: true,
         }
       )
-      .then((data) => {
-        localStorage.setItem("cbAuth", data.data.token);
+      .then(() => {
         navigate("/");
         navigate(0);
       })

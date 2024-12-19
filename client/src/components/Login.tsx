@@ -43,8 +43,7 @@ const Login = () => {
       .post(`${apiUrl}/auth/login`, data, {
         withCredentials: true,
       })
-      .then((data: any) => {
-        localStorage.setItem("cbAuth", data.data.token);
+      .then(() => {
         reset();
         navigate("/");
         navigate(0);

@@ -79,8 +79,7 @@ const Register = () => {
     setValue("membership", false);
     axios
       .post(`${apiUrl}/auth/register`, data)
-      .then((res) => {
-        localStorage.setItem("cbAuth", res.data.token);
+      .then(() => {
         reset();
         navigate("/");
         navigate(0);

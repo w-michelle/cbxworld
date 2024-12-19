@@ -30,15 +30,14 @@ export const getCurrentUser = async (
   next: express.NextFunction
 ) => {
   try {
-    const authHeader = req.headers.authorization;
+    const token = req.cookies["cbblog-auth"];
 
-    if (!authHeader) {
+    if (!token) {
       return res.sendStatus(403);
     }
 
-    const token = authHeader.split(" ")[1];
-
     let decoded: TokenPayload;
+
     try {
       decoded = jwt.verify(token, process.env.TOKEN_SECRET) as TokenPayload;
     } catch (error) {
@@ -49,7 +48,7 @@ export const getCurrentUser = async (
       } else if (error instanceof jwt.JsonWebTokenError) {
         return res.status(401).json({ message: "Invalid token" });
       } else {
-        return res.status(500).json({ message: "Interval server error" });
+        return res.status(500).json({ message: "Internal server error" });
       }
     }
 
@@ -58,9 +57,8 @@ export const getCurrentUser = async (
     if (!user) {
       return res.sendStatus(403);
     }
-
     return res.status(200).json(user);
   } catch (error) {
-    return res.status(500).json({ message: "Interval server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

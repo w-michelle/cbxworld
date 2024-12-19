@@ -18,13 +18,10 @@ const Home = () => {
 
   useEffect(() => {
     const fetchPosts = async (retryCount = 0) => {
-      const token = localStorage.getItem("cbAuth");
-
       try {
         const apiUrl = import.meta.env.VITE_API_URL;
         const response = await axios.get(`${apiUrl}/getPosts`, {
           withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(response.data);
         setLoading(false);

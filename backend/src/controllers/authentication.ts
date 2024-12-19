@@ -35,7 +35,15 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     const token = generateToken(user);
 
-    return res.status(200).json({ token, user }).end();
+    res.cookie("cbblog-auth", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "none",
+
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json({ user }).end();
   } catch (error) {
     console.log("error:", error);
     return res.sendStatus(400);
@@ -114,7 +122,15 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     const token = generateToken(user);
 
-    return res.status(200).json({ token, user }).end();
+    res.cookie("cbblog-auth", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "none",
+
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json({ user }).end();
   } catch (error) {
     return res.sendStatus(400);
   }
@@ -136,6 +152,21 @@ export const registerCode = async (
     });
 
     return res.status(200).json(secretCode).end();
+  } catch (error) {
+    return res.sendStatus(400);
+  }
+};
+
+export const logOut = async (req: express.Request, res: express.Response) => {
+  try {
+    res.clearCookie("cbblog-auth", {
+      path: "/",
+      httpOnly: true,
+      secure: false,
+
+      sameSite: "none",
+    });
+    return res.status(200).send("Logged out successfully!");
   } catch (error) {
     return res.sendStatus(400);
   }
