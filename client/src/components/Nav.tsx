@@ -24,8 +24,13 @@ const Nav = () => {
 
   return (
     <div className="flex justify-between items-center px-4 py-2">
-      <Link to="/" className={`${location.pathname === "/" ? "hidden" : ""}`}>
-        <button className="text-customBlue"> &lt; Home</button>
+      <Link
+        to="/"
+        className={`${
+          location.pathname === "/" ? "hidden" : ""
+        } hover:text-customBlue`}
+      >
+        &lt; Home
       </Link>
       {currentUser ? (
         <div
@@ -40,10 +45,11 @@ const Nav = () => {
         <div
           className={`${location.pathname === "/auth" ? "hidden" : ""} ml-auto`}
         >
-          <Link to="/auth">
-            <button className="py-2 px-4 bg-customBlue/60 hover:bg-customBlue  rounded-md">
-              Login
-            </button>
+          <Link
+            to="/auth"
+            className="py-2 px-5 mt-4 bg-customBlue/60 hover:bg-customBlue  rounded-md"
+          >
+            Login
           </Link>
         </div>
       )}
