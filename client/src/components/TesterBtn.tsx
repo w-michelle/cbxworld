@@ -42,7 +42,6 @@ const Tester = () => {
       <button
         onClick={() => handleSubmit()}
         disabled={isLoading}
-        value="Login"
         className="hover:cursor-pointer relative py-2 px-4 text-white w-full  bg-customBlue/60 hover:bg-customBlue  rounded-md disabled:cursor-not-allowed"
       >
         {" "}

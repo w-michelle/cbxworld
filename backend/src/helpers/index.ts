@@ -1,7 +1,7 @@
 import crypto from "crypto";
-const SECRET = "MICH-REST-API";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+const SECRET = "MICH-REST-API";
 dotenv.config();
 const secretKey = process.env.TOKEN_SECRET;
 

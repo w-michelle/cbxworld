@@ -43,7 +43,19 @@ const Home = () => {
   if (loading) {
     return (
       <div className="text-white w-full h-screen flex items-center justify-center">
-        <MoonLoader size={40} color="#001bff" aria-label="Loading Spinner" />
+        <MoonLoader
+          size={40}
+          color="#001bff"
+          aria-label="Loading Spinner"
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-white w-full h-screen flex flex-col items-center justify-center">
+        <p className="text-red-500 font-semibold">{error}</p>
       </div>
     );
   }
