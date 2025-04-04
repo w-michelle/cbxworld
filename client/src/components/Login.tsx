@@ -45,9 +45,11 @@ const Login = () => {
       })
       .then(() => {
         toast.success("Logged in!", { duration: 2000 });
-        reset();
-        navigate("/");
-        navigate(0);
+        setTimeout(() => {
+          reset();
+          navigate("/auth");
+          navigate(0);
+        }, 2000);
       })
       .catch((error) => {
         const statusCode = error.response.status;
