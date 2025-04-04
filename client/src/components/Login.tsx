@@ -47,7 +47,7 @@ const Login = () => {
         toast.success("Logged in!", { duration: 2000 });
         setTimeout(() => {
           reset();
-          navigate("/auth");
+          navigate("/");
           navigate(0);
         }, 2000);
       })
