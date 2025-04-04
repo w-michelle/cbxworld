@@ -10,29 +10,32 @@ const Tester = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    axios
-      .post(
+    try {
+      await axios.post(
         `
         ${apiUrl}/auth/login`,
         { email: testUserEmail, password: testPw },
         {
           withCredentials: true,
         }
-      )
-      .then(() => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        const statusCode = error.response.status;
+      );
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const statusCode = error.response?.status;
+
         if (statusCode === 401) {
           toast.error("The email or password you entered is incorrect");
         } else if (statusCode === 400) {
           toast.error("Something went wrong");
+        } else {
+          toast.error("An unexpected error occurred.");
         }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      } else {
+        toast.error("An unknown error occurred. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
   //
   return (
