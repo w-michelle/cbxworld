@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,15 +11,20 @@ export default function getCurrentUser() {
     .then((data) => {
       return data;
     })
-
     .catch((error) => {
-      if (error.response.status === 401) {
-        const navigate = useNavigate();
-        navigate("/auth");
-        return null;
-      } else if (error.response.status === 403) {
-        return null;
+      if (error.response) {
+        if (error.response.status === 401) {
+          const navigate = useNavigate();
+          navigate("/auth");
+          return null;
+        } else if (error.response.status === 403) {
+          return null;
+        }
       }
+
+      console.error("Error:", error);
+      return null;
     });
+
   return user;
 }
