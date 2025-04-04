@@ -1,41 +1,40 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Tester = () => {
   const [isLoading, setIsLoading] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
   const testUserEmail = import.meta.env.VITE_TEST_EMAIL;
   const testPw = import.meta.env.VITE_TEST_PW;
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    setIsLoading(true);
-    try {
-      await axios.post(
+    axios
+      .post(
         `
         ${apiUrl}/auth/login`,
         { email: testUserEmail, password: testPw },
         {
           withCredentials: true,
         }
-      );
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        const statusCode = error.response?.status;
-
+      )
+      .then(() => {
+        navigate("/");
+        navigate(0);
+      })
+      .catch((error) => {
+        const statusCode = error.response.status;
         if (statusCode === 401) {
           toast.error("The email or password you entered is incorrect");
         } else if (statusCode === 400) {
           toast.error("Something went wrong");
-        } else {
-          toast.error("An unexpected error occurred.");
         }
-      } else {
-        toast.error("An unknown error occurred. Please try again.");
-      }
-    } finally {
-      setIsLoading(false);
-    }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   //
   return (

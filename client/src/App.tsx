@@ -41,7 +41,10 @@ function App() {
           playsInline
           className="w-full h-[200px] relative object-cover"
         >
-          <source src={video} type="video/mp4" />
+          <source
+            src={video}
+            type="video/mp4"
+          />
         </video>
         <Nav />
 
