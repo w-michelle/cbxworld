@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const Tester = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,33 +8,29 @@ const Tester = () => {
   const testUserEmail = import.meta.env.VITE_TEST_EMAIL;
   const testPw = import.meta.env.VITE_TEST_PW;
 
-  const navigate = useNavigate();
-
   const handleSubmit = async () => {
     setIsLoading(true);
-    axios
-      .post(
+    try {
+      await axios.post(
         `${apiUrl}/auth/login`,
         { email: testUserEmail, password: testPw },
         {
           withCredentials: true,
         }
-      )
-      .then(() => {
-        navigate("/");
-        navigate(0);
-      })
-      .catch((error) => {
-        const statusCode = error.response.status;
+      );
+
+      window.location.reload();
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        const statusCode = axiosError.response.status;
         if (statusCode === 401) {
           toast.error("The email or password you entered is incorrect");
         } else if (statusCode === 400) {
           toast.error("Something went wrong");
         }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      }
+    }
   };
   return (
     <div className="flex flex-col gap-2 p-6 ">
