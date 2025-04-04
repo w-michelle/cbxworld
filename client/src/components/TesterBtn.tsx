@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -10,28 +10,31 @@ const Tester = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    try {
-      await axios.post(
-        `${apiUrl}/auth/login`,
+    axios
+      .post(
+        `
+        ${apiUrl}/auth/login`,
         { email: testUserEmail, password: testPw },
         {
           withCredentials: true,
         }
-      );
-
-      window.location.reload();
-    } catch (error) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response) {
-        const statusCode = axiosError.response.status;
+      )
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        const statusCode = error.response.status;
         if (statusCode === 401) {
           toast.error("The email or password you entered is incorrect");
         } else if (statusCode === 400) {
           toast.error("Something went wrong");
         }
-      }
-    }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
+  //
   return (
     <div className="flex flex-col gap-2 p-6 ">
       <button
