@@ -44,6 +44,7 @@ const Login = () => {
         withCredentials: true,
       })
       .then(() => {
+        toast.success("Logged in!", { duration: 2000 });
         reset();
         navigate("/");
         navigate(0);

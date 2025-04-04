@@ -80,8 +80,11 @@ const Register = () => {
     axios
       .post(`${apiUrl}/auth/register`, data)
       .then(() => {
+        toast.success("Registered!", {
+          duration: 2000,
+        });
         reset();
-        navigate("/");
+        navigate("/auth");
         navigate(0);
       })
       .catch((error) => {
