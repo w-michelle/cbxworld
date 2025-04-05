@@ -16,8 +16,9 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const getUser = async () => {
+      setLoading(true);
+      await new Promise((res) => setTimeout(res, 100));
       const data = await getCurrentUser();
 
       if (data) {
