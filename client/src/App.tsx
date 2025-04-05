@@ -13,9 +13,10 @@ import Loader from "./components/Loader";
 
 function App() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const getUser = async () => {
       const data = await getCurrentUser();
 
