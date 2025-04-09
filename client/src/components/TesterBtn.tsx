@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import getCurrentUser from "../actions/getCurrentUser";
 
 const Tester = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,32 +12,32 @@ const Tester = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    axios
-      .post(
-        `
-        ${apiUrl}/auth/login`,
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        `${apiUrl}/auth/login`,
         { email: testUserEmail, password: testPw },
-        {
-          withCredentials: true,
+        { withCredentials: true }
+      );
+      if (response.status == 200) {
+        await new Promise((res) => setTimeout(res, 500));
+        const currentUser = await getCurrentUser();
+        if (currentUser) {
+          navigate("/");
+          navigate(0);
+        } else {
+          toast.error("Login Failed");
         }
-      )
-      .then(() => {
-        navigate("/");
-        navigate(0);
-      })
-      .catch((error) => {
-        const statusCode = error.response.status;
-        if (statusCode === 401) {
-          toast.error("The email or password you entered is incorrect");
-        } else if (statusCode === 400) {
-          toast.error("Something went wrong");
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      } else {
+        toast.error("Login Failed");
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
-  //
+
   return (
     <div className="flex flex-col gap-2 p-6 ">
       <button

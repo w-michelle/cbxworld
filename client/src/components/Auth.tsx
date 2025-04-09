@@ -20,6 +20,7 @@ const Auth = () => {
           {authOption}
         </span>{" "}
       </div>
+      {/* //tester button */}
       <Tester />
     </div>
   );
