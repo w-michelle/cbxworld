@@ -3,6 +3,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import getCurrentUser from "../actions/getCurrentUser";
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/features/authSlice";
 
 const Tester = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,24 +12,22 @@ const Tester = () => {
   const testUserEmail = import.meta.env.VITE_TEST_EMAIL;
   const testPw = import.meta.env.VITE_TEST_PW;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post(
+      await axios.post(
         `${apiUrl}/auth/login`,
         { email: testUserEmail, password: testPw },
         { withCredentials: true }
       );
-      if (response.status == 200) {
-        await new Promise((res) => setTimeout(res, 500));
-        const currentUser = await getCurrentUser();
-        if (currentUser) {
-          navigate("/");
-          navigate(0);
-        } else {
-          toast.error("Login Failed");
-        }
+
+      await new Promise((res) => setTimeout(res, 500));
+      const currentUser = await getCurrentUser();
+      if (currentUser) {
+        dispatch(addUser(currentUser.data));
+        navigate("/");
       } else {
         toast.error("Login Failed");
       }
