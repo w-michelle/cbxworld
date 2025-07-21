@@ -34,6 +34,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     }
 
     const token = generateToken(user);
+    console.log("token", token);
 
     res.cookie("cbblog-auth", token, {
       httpOnly: true,
@@ -123,11 +124,12 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     res.cookie("cbblog-auth", token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
     });
-
+    console.log("logging");
+    console.log("Set-Cookie header:", res.getHeader("Set-Cookie"));
     return res.status(200).json({ user }).end();
   } catch (error) {
     return res.sendStatus(400);
