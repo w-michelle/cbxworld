@@ -34,6 +34,9 @@ const MONGO_URL = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MON
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
+mongoose.connect(MONGO_URL).catch((err) => {
+  console.error("MongoDB connection error:", err.message);
+});
 mongoose.connection.on("error", (error: Error) => console.log(error));
 
 app.use("/", router());
