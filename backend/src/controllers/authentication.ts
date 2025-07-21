@@ -124,7 +124,7 @@ export const register = async (req: express.Request, res: express.Response) => {
 
     res.cookie("cbblog-auth", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "none",
       maxAge: 24 * 60 * 60 * 1000,
     });

@@ -11,6 +11,7 @@ export default async function getCurrentUser() {
     return response;
   } catch (error: any) {
     if (error.response?.status === 401 || error.response?.status === 403) {
+      console.log(error);
       return null;
     }
     throw error;
