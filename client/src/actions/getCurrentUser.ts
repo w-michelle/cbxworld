@@ -1,22 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
-export default function getCurrentUser() {
+export default async function getCurrentUser() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const user = axios
-    .get(`${apiUrl}/getCurrentUser`, {
+  try {
+    const response = await axios.get(`${apiUrl}/getCurrentUser`, {
       withCredentials: true,
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      if (error.response.status === 401) {
-        return null;
-      } else if (error.response.status === 403) {
-        return null;
-      }
     });
-  return user;
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      return null;
+    }
+    throw error;
+  }
 }
