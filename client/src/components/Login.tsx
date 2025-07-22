@@ -55,7 +55,6 @@ const Login = () => {
           const currentUser = await getCurrentUser();
           if (currentUser) {
             dispatch(addUser(currentUser.data));
-            console.log("User after login:", user);
           }
         } catch (err) {
           console.log("Failed to fetch user after login");
