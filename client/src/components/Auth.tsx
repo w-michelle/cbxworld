@@ -22,6 +22,11 @@ const Auth = () => {
       </div>
       {/* //tester button */}
       <Tester />
+
+      <div className="fixed bottom-0 left-0  text-xs w-full md:max-w-[350px]  p-6 bg-neutral-600">
+        ⚠️ Your browser is blocking third-party cookies, which may cause login
+        issues. Please enable third-party cookies or use a different browser.
+      </div>
     </div>
   );
 };

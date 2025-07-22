@@ -8,7 +8,7 @@ export default async function getCurrentUser() {
     const response = await axios.get(`${apiUrl}/getCurrentUser`, {
       withCredentials: true,
     });
-    console.log("response", response);
+
     return response;
   } catch (error: any) {
     if (error.response?.status === 401 || error.response?.status === 403) {

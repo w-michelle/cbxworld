@@ -14,7 +14,7 @@ const Nav = () => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       await axios.post(`${apiUrl}/logout`, {}, { withCredentials: true });
-      console.log("Logged out successfully");
+
       navigate(0);
       navigate("/");
     } catch (error) {
@@ -43,11 +43,13 @@ const Nav = () => {
         </div>
       ) : (
         <div
-          className={`${location.pathname === "/auth" ? "hidden" : ""} ml-auto`}
+          className={`${
+            location.pathname === "/auth" ? "hidden" : ""
+          } ml-auto mt-4`}
         >
           <Link
             to="/auth"
-            className="py-2 px-5 mt-4 bg-customBlue/60 hover:bg-customBlue  rounded-md"
+            className="py-2 px-5 bg-customBlue/60 hover:bg-customBlue rounded-md"
           >
             Login
           </Link>
