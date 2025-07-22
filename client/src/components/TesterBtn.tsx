@@ -24,12 +24,14 @@ const Tester = () => {
       );
 
       await new Promise((res) => setTimeout(res, 500));
-      const currentUser = await getCurrentUser();
-      if (currentUser) {
-        dispatch(addUser(currentUser.data));
-        navigate("/");
-      } else {
-        toast.error("Login Failed");
+      try {
+        const currentUser = await getCurrentUser();
+        if (currentUser) {
+          dispatch(addUser(currentUser.data));
+          navigate("/");
+        }
+      } catch (error) {
+        console.log("Failed to fetch user after login", error);
       }
 
       setIsLoading(false);

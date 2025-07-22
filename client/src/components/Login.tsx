@@ -8,6 +8,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
+import getCurrentUser from "../actions/getCurrentUser";
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/features/authSlice";
 
 type FormData = {
   email: string;
@@ -17,6 +20,7 @@ type FormData = {
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const apiUrl = import.meta.env.VITE_API_URL;
   const schema = yup.object().shape({
     email: yup.string().required("Email is required").email("Email is invalid"),
@@ -43,8 +47,20 @@ const Login = () => {
       .post(`${apiUrl}/auth/login`, data, {
         withCredentials: true,
       })
-      .then(() => {
+      .then(async () => {
         toast.success("Logged in!", { duration: 2000 });
+
+        await new Promise((res) => setTimeout(res, 300));
+        try {
+          const currentUser = await getCurrentUser();
+          if (currentUser) {
+            dispatch(addUser(currentUser.data));
+            console.log("User after login:", user);
+          }
+        } catch (err) {
+          console.log("Failed to fetch user after login");
+        }
+
         setTimeout(() => {
           reset();
           navigate("/");
