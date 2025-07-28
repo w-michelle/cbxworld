@@ -21,10 +21,8 @@ function App() {
 
       const data = await getCurrentUser();
 
-      if (!data) {
-        return;
-      } else {
-        dispatch(addUser(data.data));
+      if (data?.data.user !== null) {
+        dispatch(addUser(data?.data));
       }
 
       setLoading(false);
