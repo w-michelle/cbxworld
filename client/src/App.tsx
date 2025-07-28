@@ -21,9 +21,12 @@ function App() {
 
       const data = await getCurrentUser();
 
-      if (data) {
-        dispatch(addUser(data.data));
+      if (!data) {
+        return;
       }
+
+      dispatch(addUser(data.data));
+
       setLoading(false);
     };
     getUser();

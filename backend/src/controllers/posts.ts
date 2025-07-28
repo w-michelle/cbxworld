@@ -20,6 +20,7 @@ export const createPost = async (
     const { author, content } = req.body;
 
     if (!author || !content) {
+      console.log("author", author, "content", content);
       return res.sendStatus(400);
     }
 
