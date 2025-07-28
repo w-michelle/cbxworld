@@ -39,7 +39,7 @@ const UserProfile = () => {
               to="/createPost"
               className="ml-auto text-sm flex items-center justify-center bg-customBlue/60 hover:bg-customBlue w-[2rem] h-[2rem] rounded-full"
             >
-              <span className="ml-[2px]">+</span>
+              <span className="">+</span>
             </Link>
           )}
         </div>
