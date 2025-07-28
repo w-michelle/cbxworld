@@ -23,9 +23,9 @@ function App() {
 
       if (!data) {
         return;
+      } else {
+        dispatch(addUser(data.data));
       }
-
-      dispatch(addUser(data.data));
 
       setLoading(false);
     };
