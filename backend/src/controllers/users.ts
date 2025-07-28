@@ -33,7 +33,7 @@ export const getCurrentUser = async (
     const token = req.cookies["cbblog-auth"];
 
     if (!token) {
-      return res.sendStatus(403);
+      return res.status(200).json({ user: null });
     }
 
     let decoded: TokenPayload;
