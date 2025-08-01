@@ -66,16 +66,18 @@ const Home = () => {
         {/* if signed in then theres member component */}
         {currentUser && <UserProfile />}
 
-        <div className="max-w-screen-md flex flex-col items-center w-full gap-6">
+        <section className="max-w-screen-md flex flex-col items-center w-full gap-6">
           {posts &&
             posts?.map((post: any, index: number) => (
-              <div
+              <article
                 key={index}
                 className="p-4 rounded-md border-2 border-white w-full"
               >
                 <div className="flex gap-2">
                   <div
                     className="rounded-full w-8 h-8"
+                    role="img"
+                    aria-label={`Profile avatar for ${post.author.name}`}
                     style={{ backgroundImage: `${post.author.profile}` }}
                   ></div>
                   <div
@@ -91,9 +93,9 @@ const Home = () => {
                 <div className="mt-4">
                   <p>{post.content}</p>
                 </div>
-              </div>
+              </article>
             ))}
-        </div>
+        </section>
       </div>
     </div>
   );

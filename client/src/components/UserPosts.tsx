@@ -56,7 +56,7 @@ const UserPosts = () => {
       <div className="max-w-screen-md flex flex-col items-center w-full gap-6">
         {posts &&
           posts?.map((post: any, index: number) => (
-            <div
+            <article
               key={index}
               className="relative p-4 rounded-md border-2 border-white w-full"
             >
@@ -70,6 +70,8 @@ const UserPosts = () => {
                 <div
                   className="rounded-full w-8 h-8"
                   style={{ backgroundImage: `${post.author.profile}` }}
+                  role="img"
+                  aria-label={`Profile avatar for ${post.author.name}`}
                 ></div>
                 <div className="">
                   <p>{post.author.username}</p>
@@ -82,7 +84,7 @@ const UserPosts = () => {
               <div className="mt-4">
                 <p>{post.content}</p>
               </div>
-            </div>
+            </article>
           ))}
       </div>
     </div>

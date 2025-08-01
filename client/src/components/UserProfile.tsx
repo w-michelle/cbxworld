@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 const UserProfile = () => {
   const currentUser = useSelector(selectUser);
   return (
-    <div className="max-w-screen-md w-full">
-      <div className="p-4 w-full border-2 border-[#ffff] rounded-lg">
+    <section className="max-w-screen-md w-full">
+      <article className="p-4 w-full border-2 border-[#ffff] rounded-lg">
         <div className="flex gap-2">
           <div
             className="rounded-full w-8 h-8"
             style={{ backgroundImage: `${currentUser?.profile}` }}
+            role="img"
+            aria-label={`Profile avatar for ${currentUser?.username}`}
           ></div>
           <div className="bg-red">
             <Link to={`/user/${currentUser?._id}`}>
@@ -43,8 +45,8 @@ const UserProfile = () => {
             </Link>
           )}
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 
